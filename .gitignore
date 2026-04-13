@@ -1,0 +1,21 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+venv/
+env/
+.env
+
+# Django
+db.sqlite3
+media/
+staticfiles/
+
+# Firebase
+# (Opcional) Si tienes el JSON de credenciales, ocúltalo por seguridad
+*.json
+
+# VS Code / IDEs
+.vscode/
+.idea/
+.DS_Store
