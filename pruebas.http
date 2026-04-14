@@ -1,66 +1,58 @@
-### Configuración de Variables
-@baseUrl = http://127.0.0.1:8000/api
-@token = eyJhbGciOiJSUzI1NiIsImtpZCI6IjcwZmM5YzU0YjhiMjQyMWZmMTgyOTgxNTQyZmQ0NjRlOWJlYzM1NDUiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vdHVybm9zLWE2ZDhkIiwiYXVkIjoidHVybm9zLWE2ZDhkIiwiYXV0aF90aW1lIjoxNzc2MDk2NDI3LCJ1c2VyX2lkIjoid2JCY0xkcThlS1hWR0ZhTGdrbWhmc3lBNTQzMyIsInN1YiI6IndiQmNMZHE4ZUtYVkdGYUxna21oZnN5QTU0MzMiLCJpYXQiOjE3NzYwOTY0MjcsImV4cCI6MTc3NjEwMDAyNywiZW1haWwiOiJmYWJpYW50QGdtYWlsLmNvbSIsImVtYWlsX3ZlcmlmaWVkIjpmYWxzZSwiZmlyZWJhc2UiOnsiaWRlbnRpdGllcyI6eyJlbWFpbCI6WyJmYWJpYW50QGdtYWlsLmNvbSJdfSwic2lnbl9pbl9wcm92aWRlciI6InBhc3N3b3JkIn19.bb9Pfo__48qTeaLEpU1YyErNXr1E3neadsmoMKrKVvTTrDN6xirXoJUvlkc6_RvuqF4j80L38ivaeg-qGi_RRd-iRy_XwAW8OLBKSpdcb5ijRap_WZmuwNMITasWd7wRzLxuWANll_tFGrRzw5jwDQ1R1DhLp_IHRQj6m_0t6mW-to8rUCRqGAo4yAaXan6-aZXBtpEw-cTFtZVputF101XeNurp7Pmxk1xl7aVRdeKcbFC9gkyWGmfuMkoc2di3hANkRsV75-Li809DxrOV5avEcLfUur0D_8HQrvDRfxbWmx8XXVKv_xED5AfTT21i6M6z-067mKomCbVMc2x2sw
-
-### 1. Crear un Ticket (POST)
-POST {{baseUrl}}/tickets/
-Authorization: Bearer {{token}}
+###Registro
+POST http://127.0.0.1:8000/api/registro/
 Content-Type: application/json
 
 {
-    "titulo": "El monitor encendio",
-    "descripcion": "El monitor del laboratorio 6 enciende",
-    "numero_equipo": "L6-05"
+  "email": "test@gmail.com",
+  "password": "123456",
+  "rol": "tecnico"
 }
 
-### 2. Listar Tickets (GET)
-# Funciona para ambos roles (Técnico ve todo / Aprendiz ve lo suyo)
-GET {{baseUrl}}/tickets/
-Authorization: Bearer {{token}}
 
-### 3. Filtrar por Estado (GET con Query Params)
-GET {{baseUrl}}/tickets/?estado=pendiente
-Authorization: Bearer {{token}}
-
-### 4. Actualizar Estado (PUT)
-# RECUERDA: Solo funciona si en Firebase tienes rol 'tecnico'
-PUT {{baseUrl}}/tickets/xF0KLE0mYpzxC9OeJP6g/
-Authorization: Bearer {{token}}
+###Login
+POST http://127.0.0.1:8000/api/login/
 Content-Type: application/json
 
 {
-    "estado": "Resuelto"
+  "email": "test@gmail.com",
+  "password": "123456"
 }
 
-### 5. Ver Estadísticas (GET)
-GET {{baseUrl}}/tickets/estadisticas/
-Authorization: Bearer {{token}}
 
-
-### --- ESCENARIO 1: PRUEBA COMO APRENDIZ ---
-# IMPORTANTE: Antes de dar "Send Request", cambia tu rol en Firebase a "usuario_base"
-
-### A. Crear Ticket como Aprendiz
-POST {{baseUrl}}/tickets/
-Authorization: Bearer {{token}}
+###Crear ticket
+POST http://127.0.0.1:8000/api/tickets/
+Authorization: Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6IjcwZmM5YzU0YjhiMjQyMWZmMTgyOTgxNTQyZmQ0NjRlOWJlYzM1NDUiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vdHVybm9zLWE2ZDhkIiwiYXVkIjoidHVybm9zLWE2ZDhkIiwiYXV0aF90aW1lIjoxNzc2MTM2MDIyLCJ1c2VyX2lkIjoiak5Od0s2UTlGcFF0SWw4ZG9yQkVlUzBla1liMiIsInN1YiI6ImpOTndLNlE5RnBRdElsOGRvckJFZVMwZWtZYjIiLCJpYXQiOjE3NzYxMzYwMjIsImV4cCI6MTc3NjEzOTYyMiwiZW1haWwiOiJ0ZXN0QGdtYWlsLmNvbSIsImVtYWlsX3ZlcmlmaWVkIjpmYWxzZSwiZmlyZWJhc2UiOnsiaWRlbnRpdGllcyI6eyJlbWFpbCI6WyJ0ZXN0QGdtYWlsLmNvbSJdfSwic2lnbl9pbl9wcm92aWRlciI6InBhc3N3b3JkIn19.ugUBEhWexGriPRvAMwSs3w_ftSv0WeNwtWocdtckewcSNDU0Ti-VBQk9W33-TQYThBamauZ-G7WUhFfGAB8e6wKDezt7KrM2NkQOGVnAlc_RW9IrSRdndxuBLRl3wHtshvAfV3LZZq82BI0hZD3gHvXcAo2rQWu9RUyztyw5XsVGwQR932WgQrEY1gwZ7VqCFWxItEBaWdQZSjGC9O_d4yan-ohilb9VkZ4IlIc44r0u5Clgo_JrEvtAjB45JNRaPRCzQDfFmK4oomKPHGH0Cd9yNO3oXQyc5CzPCSJVGLkjMBW7Vv9o_e98VpPsb2nIJD3Uoi8eT8zErV8VkZOnqw
 Content-Type: application/json
 
 {
-    "titulo": "Falla en mouse",
-    "descripcion": "No funciona el mouse al equipo 8",
-    "numero_equipo": "P1-05"
+  "titulo": "El monitor encendio",
+  "descripcion": "El monitor del laboratorio 6 enciende",
+  "numero_equipo": "L6-05"
 }
 
-### B. Listar Mis Tickets (Filtro automático)
-GET {{baseUrl}}/tickets/
-Authorization: Bearer {{token}}
 
-### C. Intento de Hack (Debe dar Error 403)
-# Un aprendiz intentando resolver su propio ticket
-PUT {{baseUrl}}/tickets/7n3ngFOWb1OZZK9nTmA3/
-Authorization: Bearer {{token}}
+###Listar tickets
+GET http://127.0.0.1:8000/api/tickets/
+Authorization: Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6IjcwZmM5YzU0YjhiMjQyMWZmMTgyOTgxNTQyZmQ0NjRlOWJlYzM1NDUiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vdHVybm9zLWE2ZDhkIiwiYXVkIjoidHVybm9zLWE2ZDhkIiwiYXV0aF90aW1lIjoxNzc2MTM3MTg1LCJ1c2VyX2lkIjoiak5Od0s2UTlGcFF0SWw4ZG9yQkVlUzBla1liMiIsInN1YiI6ImpOTndLNlE5RnBRdElsOGRvckJFZVMwZWtZYjIiLCJpYXQiOjE3NzYxMzcxODUsImV4cCI6MTc3NjE0MDc4NSwiZW1haWwiOiJ0ZXN0QGdtYWlsLmNvbSIsImVtYWlsX3ZlcmlmaWVkIjpmYWxzZSwiZmlyZWJhc2UiOnsiaWRlbnRpdGllcyI6eyJlbWFpbCI6WyJ0ZXN0QGdtYWlsLmNvbSJdfSwic2lnbl9pbl9wcm92aWRlciI6InBhc3N3b3JkIn19.SdD1DU3NwWWmXZSQmQrV4dCeBIW9gOj03E94Yk_7S8uE3-eM9cC8AKV9t_yeiVHrJiL2KwGZzvKTRmfDHqxZppi_5mWdxaOipviN2aH9e-6bAUVW2oWh7FENQ2w5cW8UJHIXfIvBtVbFp88I5IDdXyWITGbtZWQUX17WLi8cTq32LYEBlkJcYZRsqzHNTmu4GQpAUOep3ujBkZF-PsL4M_yl3TQVhChk-lyH_iTCgCBKgkRyXAQlACDc_5Ogbjwh0LI-etCRO4xVAukTN18iDExNXdBw1nQWdf1q-qCityH9UtKNQVOoIDdFlMKQAfhwzM0UnEOLH2totDSJk6soDA
+
+
+
+###Filtrar tickets por estado
+GET http://127.0.0.1:8000/api/tickets/?estado=pendiente
+Authorization: Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6IjcwZmM5YzU0YjhiMjQyMWZmMTgyOTgxNTQyZmQ0NjRlOWJlYzM1NDUiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vdHVybm9zLWE2ZDhkIiwiYXVkIjoidHVybm9zLWE2ZDhkIiwiYXV0aF90aW1lIjoxNzc2MTM3MTg1LCJ1c2VyX2lkIjoiak5Od0s2UTlGcFF0SWw4ZG9yQkVlUzBla1liMiIsInN1YiI6ImpOTndLNlE5RnBRdElsOGRvckJFZVMwZWtZYjIiLCJpYXQiOjE3NzYxMzcxODUsImV4cCI6MTc3NjE0MDc4NSwiZW1haWwiOiJ0ZXN0QGdtYWlsLmNvbSIsImVtYWlsX3ZlcmlmaWVkIjpmYWxzZSwiZmlyZWJhc2UiOnsiaWRlbnRpdGllcyI6eyJlbWFpbCI6WyJ0ZXN0QGdtYWlsLmNvbSJdfSwic2lnbl9pbl9wcm92aWRlciI6InBhc3N3b3JkIn19.SdD1DU3NwWWmXZSQmQrV4dCeBIW9gOj03E94Yk_7S8uE3-eM9cC8AKV9t_yeiVHrJiL2KwGZzvKTRmfDHqxZppi_5mWdxaOipviN2aH9e-6bAUVW2oWh7FENQ2w5cW8UJHIXfIvBtVbFp88I5IDdXyWITGbtZWQUX17WLi8cTq32LYEBlkJcYZRsqzHNTmu4GQpAUOep3ujBkZF-PsL4M_yl3TQVhChk-lyH_iTCgCBKgkRyXAQlACDc_5Ogbjwh0LI-etCRO4xVAukTN18iDExNXdBw1nQWdf1q-qCityH9UtKNQVOoIDdFlMKQAfhwzM0UnEOLH2totDSJk6soDA
+
+
+
+###Actualizar estado de un ticket
+PUT http://127.0.0.1:8000/api/tickets/2uClfydwG3pbLwrFmKSo/
+Authorization: Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6IjcwZmM5YzU0YjhiMjQyMWZmMTgyOTgxNTQyZmQ0NjRlOWJlYzM1NDUiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vdHVybm9zLWE2ZDhkIiwiYXVkIjoidHVybm9zLWE2ZDhkIiwiYXV0aF90aW1lIjoxNzc2MTM3MTg1LCJ1c2VyX2lkIjoiak5Od0s2UTlGcFF0SWw4ZG9yQkVlUzBla1liMiIsInN1YiI6ImpOTndLNlE5RnBRdElsOGRvckJFZVMwZWtZYjIiLCJpYXQiOjE3NzYxMzcxODUsImV4cCI6MTc3NjE0MDc4NSwiZW1haWwiOiJ0ZXN0QGdtYWlsLmNvbSIsImVtYWlsX3ZlcmlmaWVkIjpmYWxzZSwiZmlyZWJhc2UiOnsiaWRlbnRpdGllcyI6eyJlbWFpbCI6WyJ0ZXN0QGdtYWlsLmNvbSJdfSwic2lnbl9pbl9wcm92aWRlciI6InBhc3N3b3JkIn19.SdD1DU3NwWWmXZSQmQrV4dCeBIW9gOj03E94Yk_7S8uE3-eM9cC8AKV9t_yeiVHrJiL2KwGZzvKTRmfDHqxZppi_5mWdxaOipviN2aH9e-6bAUVW2oWh7FENQ2w5cW8UJHIXfIvBtVbFp88I5IDdXyWITGbtZWQUX17WLi8cTq32LYEBlkJcYZRsqzHNTmu4GQpAUOep3ujBkZF-PsL4M_yl3TQVhChk-lyH_iTCgCBKgkRyXAQlACDc_5Ogbjwh0LI-etCRO4xVAukTN18iDExNXdBw1nQWdf1q-qCityH9UtKNQVOoIDdFlMKQAfhwzM0UnEOLH2totDSJk6soDA
 Content-Type: application/json
 
 {
-    "estado": "resuelto"
+  "estado": "Resuelto"
 }
+
+
+###Obtener estadísticas de tickets
+GET http://127.0.0.1:8000/api/tickets/estadisticas/
+Authorization: Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6IjcwZmM5YzU0YjhiMjQyMWZmMTgyOTgxNTQyZmQ0NjRlOWJlYzM1NDUiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vdHVybm9zLWE2ZDhkIiwiYXVkIjoidHVybm9zLWE2ZDhkIiwiYXV0aF90aW1lIjoxNzc2MTM3MTg1LCJ1c2VyX2lkIjoiak5Od0s2UTlGcFF0SWw4ZG9yQkVlUzBla1liMiIsInN1YiI6ImpOTndLNlE5RnBRdElsOGRvckJFZVMwZWtZYjIiLCJpYXQiOjE3NzYxMzcxODUsImV4cCI6MTc3NjE0MDc4NSwiZW1haWwiOiJ0ZXN0QGdtYWlsLmNvbSIsImVtYWlsX3ZlcmlmaWVkIjpmYWxzZSwiZmlyZWJhc2UiOnsiaWRlbnRpdGllcyI6eyJlbWFpbCI6WyJ0ZXN0QGdtYWlsLmNvbSJdfSwic2lnbl9pbl9wcm92aWRlciI6InBhc3N3b3JkIn19.SdD1DU3NwWWmXZSQmQrV4dCeBIW9gOj03E94Yk_7S8uE3-eM9cC8AKV9t_yeiVHrJiL2KwGZzvKTRmfDHqxZppi_5mWdxaOipviN2aH9e-6bAUVW2oWh7FENQ2w5cW8UJHIXfIvBtVbFp88I5IDdXyWITGbtZWQUX17WLi8cTq32LYEBlkJcYZRsqzHNTmu4GQpAUOep3ujBkZF-PsL4M_yl3TQVhChk-lyH_iTCgCBKgkRyXAQlACDc_5Ogbjwh0LI-etCRO4xVAukTN18iDExNXdBw1nQWdf1q-qCityH9UtKNQVOoIDdFlMKQAfhwzM0UnEOLH2totDSJk6soDA

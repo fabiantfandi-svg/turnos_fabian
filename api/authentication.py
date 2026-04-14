@@ -28,7 +28,7 @@ class FirebaseAuthentication(BaseAuthentication):
 
         partes = auth_header.split()
         if len(partes) != 2 or partes[0].lower() != 'bearer':
-            return None
+            raise AuthenticationFailed("Formato de token inválido")
         
         token = partes[1]
 
@@ -45,7 +45,7 @@ class FirebaseAuthentication(BaseAuthentication):
             if user_profile.exists:
                 data = user_profile.to_dict()
                 # Ajustamos los roles a los del requerimiento del SENA
-                rol = data.get('rol', 'usuario_base')
+                rol = str(data.get('rol', 'usuario_base')).strip().lower()
             else:
                 rol = 'usuario_base'
 
